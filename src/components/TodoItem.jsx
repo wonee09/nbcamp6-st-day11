@@ -1,21 +1,21 @@
-// Hint: TodoItem 컴포넌트는 props 를 받습니다.
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { jsonApi } from "../api/axios.js";
 import { deleteTodo, updateIsDone } from "../redux/slices/todoSlice.js";
 
 export default function TodoItem({ todo }) {
   const dispatch = useDispatch();
 
   const toggleTodo = async (id) => {
-    const { data: todo } = await axios.get(`http://localhost:5055/todos/${id}`);
-    const { data } = await axios.patch(`http://localhost:5055/todos/${id}`, {
+    const { data: todo } = await jsonApi.get(`/todos/${id}`);
+    await jsonApi.patch(`/todos/${id}`, {
       isDone: !todo.isDone,
     });
     dispatch(updateIsDone(todo.id));
   };
 
   const removeTodo = async (id) => {
-    const { data } = await axios.delete(`http://localhost:5055/todos/${id}`);
+    await jsonApi.delete(`/todos/${id}`);
     dispatch(deleteTodo(id));
   };
 

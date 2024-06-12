@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { jsonApi } from "../api/axios";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
 import { logout } from "../redux/slices/authSlice";
@@ -11,8 +12,7 @@ export default function Main() {
 
   useEffect(() => {
     const getTodos = async () => {
-      const { data } = await axios.get(`http://localhost:5055/todos`);
-      console.log("data:", data);
+      const { data } = await jsonApi.get(`/todos`);
       dispatch(setTodos(data));
     };
     getTodos();

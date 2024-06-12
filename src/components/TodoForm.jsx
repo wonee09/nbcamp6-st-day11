@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { createTodo } from "../redux/slices/todoSlice.js";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import { jsonApi } from "../api/axios.js";
 
 export default function TodoForm() {
   const [title, setTitle] = useState("");
@@ -22,8 +23,7 @@ export default function TodoForm() {
       isDone: false,
       createdAt: Date.now(),
     };
-    const { data } = await axios.post(`http://localhost:5055/todos`, newTodo);
-    console.log("data in newTodo:", data);
+    await jsonApi.post(`/todos`, newTodo);
     dispatch(createTodo(newTodo));
   };
 
