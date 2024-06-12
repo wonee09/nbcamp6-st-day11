@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createTodo } from "../redux/slices/todoSlice.js";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 import { jsonApi } from "../api/axios.js";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function TodoForm() {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const dispatch = useDispatch();
+
+  const queryClient = useQueryClient();
+  const addMutation = useMutation({
+    mutationFn: (newTodo) => jsonApi.post(`/todos`, newTodo),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["todos"]);
+    },
+  });
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -23,8 +28,8 @@ export default function TodoForm() {
       isDone: false,
       createdAt: Date.now(),
     };
-    await jsonApi.post(`/todos`, newTodo);
-    dispatch(createTodo(newTodo));
+    addMutation.mutate(newTodo);
+    // dispatch(createTodo(newTodo));
   };
 
   return (
