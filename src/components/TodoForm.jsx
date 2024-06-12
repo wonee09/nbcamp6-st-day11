@@ -23,7 +23,6 @@ export default function TodoForm() {
       createdAt: Date.now(),
     };
     const { data } = await axios.post(`http://localhost:5055/todos`, newTodo);
-    console.log("data in newTodo:", data);
     dispatch(createTodo(newTodo));
   };
 
