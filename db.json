@@ -4,7 +4,7 @@
       "id": "fadd757e-138f-4944-afd9-398bdef30a7d",
       "title": "asdfasd",
       "contents": "123123",
-      "isDone": true,
+      "isDone": false,
       "createdAt": 1718157009540
     },
     {
@@ -39,7 +39,7 @@
       "id": "07ef09bf-f0fc-4e22-a39b-2e13d4cc3451",
       "title": "asdfsdf",
       "contents": "asdfsdfsdf",
-      "isDone": false,
+      "isDone": true,
       "createdAt": 1718158099262
     }
   ]
